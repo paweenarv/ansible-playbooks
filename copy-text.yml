@@ -1,0 +1,28 @@
+---
+- name: Manage Windows servers
+  hosts: host1:host2
+  tasks:
+
+  - name: Create directory structure
+    win_file:
+        path: C:\Temp\folder
+        state: directory
+
+  - name: Touch a file
+    win_file: 
+        path: C:\Temp\folder\helloworld.txt
+        state: touch
+
+  - name: Create a file from a Jinja2 template
+    win_template:
+        src: helloworld.txt.j2
+        dest: C:\Temp\folder\helloworld.txt
+
+  - win_stat:
+        path: C:\Temp\folder\helloworld.txt
+        get_checksum: yes
+        checksum_algorithm: md5
+    register: md5_checksum
+
+  - debug:
+        var: md5_checksum.stat.checksum
