@@ -1,5 +1,5 @@
 - name: windows server patching
-  hosts: 10.160.44.82
+  hosts: all
   tasks:
     - name: Check for missing updates
       win_updates:
